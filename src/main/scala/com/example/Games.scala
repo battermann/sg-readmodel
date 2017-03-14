@@ -19,13 +19,10 @@ class Games extends Actor {
         case e@GameStarted(_, _) =>
           val game = context.actorOf(Props[Game], name = s"${commitData.streamId}")
           game ! e
-        case e@GroupRemoved(_, _, _) =>
+        case e =>
           val game = context.actorSelection(s"/user/Games/${commitData.streamId}")
           game ! e
-        case e@GameFinished(_) =>
-          val game = context.actorSelection(s"/user/Games/${commitData.streamId}")
-          game ! e
-      case _ => ()
-    }
-  }
+      }
+    case _ => ()
+   }
 }
