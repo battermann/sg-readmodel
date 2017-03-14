@@ -2,7 +2,8 @@ package com.example
 
 import akka.actor.Props
 import com.typesafe.config.{ConfigFactory, ConfigValueFactory}
-import redis.RedisClient
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object ImMemoryReadModel extends App {
 
@@ -14,9 +15,13 @@ object ImMemoryReadModel extends App {
 
   val channels = Seq("samegame:commits")
 
+  val games = akkaSystem.actorOf(Props(classOf[Games]), name = "Games")
+
   akkaSystem
-    .actorOf(Props(classOf[SubscribeActor], channels, Nil)
-    .withDispatcher("rediscala.rediscala-client-worker-dispatcher"))
+    .actorOf(Props(classOf[Subscriber], games, channels, Nil)
+      .withDispatcher("rediscala.rediscala-client-worker-dispatcher"), name = "Subscriber")
+
+  ReadModelBuilder.rebuildProjection("localhost", 6379, "samegame:commits", games)
 
   println("Press Enter to terminate...")
   scala.io.StdIn.readLine()

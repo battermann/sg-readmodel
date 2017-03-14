@@ -11,5 +11,5 @@ object implicits {
   implicit val columnFormat: Format[Column] = derived.oformat[Column]()
   implicit val boardFormat: Format[Board] = derived.oformat[Board]()
   implicit val eventFormat: Format[Event] = derived.oformat[Event]()
-  implicit val gameFormat: Format[Game] = derived.oformat[Game]()
+  implicit val commitDataFormat: Format[CommitData] = derived.oformat[CommitData]()
 }
