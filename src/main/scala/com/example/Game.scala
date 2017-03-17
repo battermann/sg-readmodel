@@ -11,7 +11,7 @@ class Game extends Actor {
       board = b
       println(s"[GAME $id] started")
       println(PrettyPrint.stringify(board))
-    case GroupRemoved(GameId(id), b, sc) =>
+    case GroupRemoved(GameId(id), _, b, sc) =>
       score = score + sc
       board = b
       println(s"[GAME $id] group removed")

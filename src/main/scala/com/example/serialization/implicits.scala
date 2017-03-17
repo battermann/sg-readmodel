@@ -10,6 +10,7 @@ object implicits {
   implicit val cellStateFormat: Format[CellState] = derived.oformat[CellState]()
   implicit val columnFormat: Format[Column] = derived.oformat[Column]()
   implicit val boardFormat: Format[Board] = derived.oformat[Board]()
+  implicit val positionFormat: Format[Position] = derived.oformat[Position]()
   implicit val eventFormat: Format[Event] = derived.oformat[Event]()
   implicit val commitDataFormat: Format[CommitData] = derived.oformat[CommitData]()
 }

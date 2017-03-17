@@ -21,6 +21,5 @@ object ReadModelBuilder {
     result.foreach(_.foreach(message => games ! CommitDataMessage(message)))
 
     Await.result(result, Duration.Inf)
-    println("read model was rebuild successfully")
   }
 }
